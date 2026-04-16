@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+
+# Pipeline working files (intermediate, not source)
+pipeline_work/
+
+# Node / Dashboard
+node_modules/
+dashboard/dist/
+dashboard/.next/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+logs/
+
+# Test output
+.pytest_cache/
+htmlcov/
+.coverage

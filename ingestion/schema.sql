@@ -1,0 +1,2 @@
+-- schema.sql — Supabase database schema.
+-- SOURCE: Already built — paste your schema.sql content here.

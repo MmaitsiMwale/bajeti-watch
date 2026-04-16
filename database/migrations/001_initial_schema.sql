@@ -1,0 +1,3 @@
+-- Run this once in your Supabase SQL editor.
+-- Full schema: documents, chunks, subscribers tables + pgvector search function.
+-- See schema.sql in the ingestion/ folder (copied from pipeline build).
