@@ -15,7 +15,7 @@ bajeti-watch/
 │   ├── pipeline.py             Orchestrator — runs all 4 steps
 │   └── schema.sql              Supabase DB schema + search function
 │
-├── agent/                      ← PHASE 3 (next)
+├── agent/                      ← PHASE 3
 │   ├── graph.py                LangGraph agent definition
 │   ├── nodes/
 │   │   ├── intake.py           Classify the incoming query
@@ -27,19 +27,22 @@ bajeti-watch/
 │   └── tools/
 │       └── supabase_search.py  search_chunks() RPC wrapper
 │
-├── api/                        ← PHASE 3 (next)
+├── api/                        ← PHASE 3/4
 │   ├── main.py                 FastAPI app entrypoint
 │   ├── routes/
 │   │   ├── whatsapp.py         Twilio webhook receiver
-│   │   └── health.py           Liveness check
+│   │   ├── health.py           Liveness check
+│   │   └── dashboard.py        Dashboard read API
 │   └── middleware/
 │       └── twilio_auth.py      Twilio signature validation
 │
 ├── dashboard/                  ← PHASE 4
+│   ├── package.json            Vite + React dashboard app
+│   ├── vercel.json             Static deployment config
 │   └── src/
 │       ├── components/         Reusable React components
 │       ├── pages/              Route-level pages (map, county, search)
-│       └── hooks/              Custom React hooks (useSupabase etc.)
+│       └── hooks/              Custom React hooks
 │
 ├── scheduler/                  ← PHASE 3/4
 │   └── fetch_new_budgets.py   Weekly document checker

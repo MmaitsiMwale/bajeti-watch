@@ -31,5 +31,5 @@ python ingestion/pipeline.py ./pdfs/*.pdf --auto
 
 ## Build phases
 - Phase 1+2 ✅  Ingestion pipeline + RAG layer
-- Phase 3    🔧  LangGraph agent + WhatsApp bot
-- Phase 4    ⬜  React dashboard + deployment
+- Phase 3    ✅  LangGraph agent + WhatsApp bot
+- Phase 4    🔧  React dashboard MVP + deployment config
