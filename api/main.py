@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     logger.info("Bajeti Watch API starting up...")
     logger.info(f"Environment : {os.environ.get('APP_ENV', 'development')}")
-    logger.info(f"Groq model  : {os.environ.get('GROQ_MODEL', 'llama-3.1-70b-versatile')}")
+    logger.info(f"Groq model  : {os.environ.get('GROQ_MODEL', 'llama-3.3-70b-versatile')}")
     logger.info(f"Embeddings  : {os.environ.get('EMBEDDING_PROVIDER', 'ollama')}")
     yield
     logger.info("Bajeti Watch API shutting down.")

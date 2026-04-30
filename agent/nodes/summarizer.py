@@ -15,7 +15,7 @@ from ..prompts.summarize import SYSTEM_PROMPT, build_user_prompt
 from .intake import AgentState
 
 
-GROQ_MODEL      = os.environ.get("GROQ_MODEL", "llama-3.1-70b-versatile")
+GROQ_MODEL      = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
 MAX_TOKENS      = 512    # keeps WhatsApp replies concise
 TEMPERATURE     = 0.2    # low — we want factual answers, not creativity
 

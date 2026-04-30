@@ -56,7 +56,7 @@ import yaml  # pip install pyyaml
 # ---------------------------------------------------------------------------
 
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.1-70b-versatile"
+GROQ_MODEL = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
 GROQ_MAX_TOKENS = 512
 
 # How many characters of the document to send to the LLM for extraction
@@ -122,13 +122,21 @@ def extract_metadata_with_llm(text: str, api_key: str) -> dict:
         "model": GROQ_MODEL,
         "max_tokens": GROQ_MAX_TOKENS,
         "temperature": 0,  # deterministic — we want facts not creativity
+        "response_format": {"type": "json_object"},
         "messages": [
             {"role": "user", "content": EXTRACTION_PROMPT.format(excerpt=excerpt)}
         ],
     }
 
     resp = requests.post(GROQ_API_URL, headers=headers, json=payload, timeout=30)
-    resp.raise_for_status()
+    try:
+        resp.raise_for_status()
+    except requests.HTTPError as exc:
+        detail = resp.text[:500]
+        raise requests.HTTPError(
+            f"{exc}. Groq response body: {detail}",
+            response=resp,
+        ) from exc
 
     content = resp.json()["choices"][0]["message"]["content"].strip()
 
@@ -136,7 +144,13 @@ def extract_metadata_with_llm(text: str, api_key: str) -> dict:
     content = re.sub(r"^```json?\s*", "", content)
     content = re.sub(r"\s*```$", "", content)
 
-    return json.loads(content)
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError as exc:
+        match = re.search(r"\{.*\}", content, flags=re.DOTALL)
+        if match:
+            return json.loads(match.group(0))
+        raise ValueError(f"Groq returned non-JSON metadata response: {content[:500]!r}") from exc
 
 
 # ---------------------------------------------------------------------------
